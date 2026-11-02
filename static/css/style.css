@@ -1,0 +1,97 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --border: #e3e6eb;
+  --text: #1c2430;
+  --muted: #6b7482;
+  --accent: #3b5bdb;
+  --kb: #2b8a3e;
+  --web: #1971c2;
+  --fallback: #e67700;
+  --direct: #7048e8;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 20px; background: var(--surface); border-bottom: 1px solid var(--border);
+}
+.brand { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+.status { font-size: 13px; color: var(--muted); }
+
+.layout {
+  display: grid; grid-template-columns: 1fr 340px; gap: 16px;
+  max-width: 1200px; margin: 16px auto; padding: 0 16px; height: calc(100vh - 80px);
+}
+
+/* Chat */
+.chat {
+  display: flex; flex-direction: column; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius); min-height: 0;
+}
+.messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.msg { display: flex; }
+.msg.user { justify-content: flex-end; }
+.bubble { max-width: 80%; padding: 10px 14px; border-radius: var(--radius); background: var(--bg); white-space: pre-wrap; }
+.msg.user .bubble { background: var(--accent); color: #fff; }
+.meta { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.badge { font-size: 12px; padding: 2px 8px; border-radius: 99px; color: #fff; }
+.badge.private_kb { background: var(--kb); }
+.badge.web { background: var(--web); }
+.badge.fallback { background: var(--fallback); }
+.badge.direct { background: var(--direct); }
+.badge.plain { background: var(--muted); }
+
+.suggestions { display: flex; gap: 8px; flex-wrap: wrap; padding: 0 16px 8px; }
+.suggestions button {
+  border: 1px solid var(--border); background: var(--surface); border-radius: 99px;
+  padding: 4px 12px; font-size: 13px; cursor: pointer;
+}
+.suggestions button:hover { border-color: var(--accent); }
+
+.composer { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--border); }
+.composer input { flex: 1; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font: inherit; }
+button[type="submit"] {
+  background: var(--accent); color: #fff; border: 0; border-radius: 8px; padding: 10px 16px; cursor: pointer; font: inherit;
+}
+button:disabled { opacity: .5; cursor: wait; }
+
+/* Panel */
+.panel {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px; overflow-y: auto;
+}
+.panel h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 16px 0 8px; }
+.panel h2:first-child { margin-top: 0; }
+.path { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.path li {
+  font-size: 13px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 6px; color: var(--muted);
+}
+.path li.hit { border-color: var(--accent); color: var(--text); background: #edf2ff; font-weight: 600; }
+.path li.hit[data-order]::before { content: attr(data-order) ". "; color: var(--accent); }
+
+.trace .step { font-size: 13px; padding: 6px 0; border-bottom: 1px dashed var(--border); }
+.trace .step b { font-family: ui-monospace, monospace; font-size: 12px; }
+.cite { font-size: 13px; padding: 6px 0; }
+.cite a { color: var(--web); word-break: break-all; }
+.muted { color: var(--muted); font-size: 13px; }
+
+.admin { margin-top: 16px; }
+.admin summary { cursor: pointer; font-size: 14px; }
+.admin form { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.admin input { font: inherit; font-size: 13px; }
+.admin input[type="password"] { padding: 8px; border: 1px solid var(--border); border-radius: 6px; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; height: auto; }
+  .chat { height: 70vh; }
+}

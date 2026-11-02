@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ assistant_name }}</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="dot"></span>{{ assistant_name }}</div>
+    <div class="status" id="status">checking…</div>
+  </header>
+
+  <main class="layout">
+    <!-- Chat -->
+    <section class="chat">
+      <div class="messages" id="messages">
+        <div class="msg bot">
+          <div class="bubble">Hi! Ask me about leave, benefits, expenses, payroll, or onboarding. I check the company knowledge base first, then the web, and tell you which one I used.</div>
+        </div>
+      </div>
+
+      <div class="suggestions" id="suggestions">
+        <button>How many PTO days carry over?</button>
+        <button>Hotel cap in San Francisco?</button>
+        <button>2026 IRS 401(k) contribution limit?</button>
+        <button>Hello!</button>
+      </div>
+
+      <form class="composer" id="composer">
+        <input id="question" autocomplete="off" placeholder="Ask a question…" maxlength="3000" />
+        <button type="submit" id="send">Send</button>
+      </form>
+    </section>
+
+    <!-- Agent panel -->
+    <aside class="panel">
+      <h2>Agent path</h2>
+      <ol class="path" id="path">
+        <li data-node="router">Router</li>
+        <li data-node="retrieve_kb">Retrieve KB</li>
+        <li data-node="grade_kb">Grade KB</li>
+        <li data-node="web_search">Web search</li>
+        <li data-node="grade_web">Grade web</li>
+        <li data-node="rewrite_query">Rewrite + retry</li>
+        <li data-node="generate_from_kb">Answer: KB</li>
+        <li data-node="generate_from_web">Answer: web</li>
+        <li data-node="fallback_answer">Fallback</li>
+        <li data-node="direct_answer">Direct</li>
+      </ol>
+
+      <h2>Trace</h2>
+      <div class="trace" id="trace"><p class="muted">Ask something to see each decision.</p></div>
+
+      <h2>Sources</h2>
+      <div id="citations"><p class="muted">None yet.</p></div>
+
+      <details class="admin">
+        <summary>Add a document (admin)</summary>
+        <form id="upload">
+          <input type="password" id="adminKey" placeholder="Admin key" required />
+          <input type="file" id="file" accept=".pdf,.md,.txt,.docx" required />
+          <button type="submit">Upload and index</button>
+          <p class="muted" id="uploadResult"></p>
+        </form>
+      </details>
+    </aside>
+  </main>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
